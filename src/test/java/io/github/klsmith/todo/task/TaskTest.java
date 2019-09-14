@@ -20,10 +20,6 @@ class TaskTest {
 
     private static final LocalDateTime TEST_DATE = LocalDateTime.of(2019, 9, 6, 10, 30);
 
-    private static Task newTestTask(Importance importance, Urgency urgency) {
-        return new Task("TEST TEXT", false, importance, urgency);
-    }
-
     @Test
     void testConstructTask() {
         final String text = "TEST TEXT";
@@ -100,6 +96,10 @@ class TaskTest {
         Collections.reverse(actual);
         Collections.sort(actual);
         assertEquals(expected, actual);
+    }
+
+    private static Task newTestTask(Importance importance, Urgency urgency) {
+        return new Task("TEST TEXT", false, importance, urgency);
     }
 
 }
