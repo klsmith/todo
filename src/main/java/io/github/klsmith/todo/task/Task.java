@@ -12,7 +12,7 @@ public class Task implements Comparable<Task> {
     private final Importance importance;
     private final Urgency urgency;
 
-    protected Task(String text, boolean complete, Importance importance, Urgency urgency) {
+    public Task(String text, boolean complete, Importance importance, Urgency urgency) {
         this.text = text;
         this.complete = complete;
         this.importance = importance;
