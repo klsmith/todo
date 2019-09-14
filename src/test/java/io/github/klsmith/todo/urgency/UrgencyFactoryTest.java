@@ -22,11 +22,11 @@ class UrgencyFactoryTest {
     }
 
     @Test
-    void testBuildNoneLevel() {
-        final Urgency urgency = UrgencyFactory.none();
-        assertEquals(UrgencyLevel.NONE, urgency.getLevel());
+    void testBuildWheneverLevel() {
+        final Urgency urgency = UrgencyFactory.whenever();
+        assertEquals(UrgencyLevel.WHENEVER, urgency.getLevel());
         assertIsNotPresent(urgency.getDate());
-        assertSame(UrgencyFactory.NONE_INSTANCE, urgency);
+        assertSame(UrgencyFactory.WHENEVER_INSTANCE, urgency);
     }
 
     @Test

@@ -25,7 +25,7 @@ public class Urgency implements Comparable<Urgency> {
         if (UrgencyLevel.DATE == level && null == date) {
             throw new InvalidUrgencyException("Cannot have null date on DATE level urgency.");
         }
-        if ((UrgencyLevel.ASAP == level || UrgencyLevel.NONE == level)
+        if ((UrgencyLevel.ASAP == level || UrgencyLevel.WHENEVER == level)
                 && null != date) {
             throw new InvalidUrgencyException(String.format("Cannot have a date on non-DATE level urgency %s.", level));
         }

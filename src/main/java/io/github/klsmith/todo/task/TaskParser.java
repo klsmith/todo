@@ -31,8 +31,8 @@ public class TaskParser {
             case "ASAP":
                 urgency = UrgencyFactory.asap();
                 break;
-            case "NONE":
-                urgency = UrgencyFactory.none();
+            case "WHENEVER":
+                urgency = UrgencyFactory.whenever();
                 break;
             default:
                 urgency = UrgencyFactory.fromDate(LocalDateTime.parse(urgencyString, formatter));

@@ -80,18 +80,18 @@ class TaskTest {
                 newTestTask(Importance.NEED, UrgencyFactory.asap()),
                 newTestTask(Importance.NEED, UrgencyFactory.fromDate(TEST_DATE)),
                 newTestTask(Importance.NEED, UrgencyFactory.fromDate(TEST_DATE.plusDays(1))),
-                newTestTask(Importance.NEED, UrgencyFactory.none()),
-                newTestTask(Importance.NEED, UrgencyFactory.none()),
+                newTestTask(Importance.NEED, UrgencyFactory.whenever()),
+                newTestTask(Importance.NEED, UrgencyFactory.whenever()),
                 newTestTask(Importance.WANT, UrgencyFactory.asap()),
                 newTestTask(Importance.WANT, UrgencyFactory.asap()),
                 newTestTask(Importance.WANT, UrgencyFactory.fromDate(TEST_DATE)),
                 newTestTask(Importance.WANT, UrgencyFactory.fromDate(TEST_DATE.plusDays(1))),
-                newTestTask(Importance.WANT, UrgencyFactory.none()),
+                newTestTask(Importance.WANT, UrgencyFactory.whenever()),
                 newTestTask(Importance.NONE, UrgencyFactory.asap()),
                 newTestTask(Importance.NONE, UrgencyFactory.fromDate(TEST_DATE)),
                 newTestTask(Importance.NONE, UrgencyFactory.fromDate(TEST_DATE)),
                 newTestTask(Importance.NONE, UrgencyFactory.fromDate(TEST_DATE.plusDays(1))),
-                newTestTask(Importance.NONE, UrgencyFactory.none()));
+                newTestTask(Importance.NONE, UrgencyFactory.whenever()));
         final List<Task> actual = new ArrayList<>(expected);
         Collections.reverse(actual);
         Collections.sort(actual);

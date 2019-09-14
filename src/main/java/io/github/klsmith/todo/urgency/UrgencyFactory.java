@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public final class UrgencyFactory {
 
     protected static final Urgency ASAP_INSTANCE = new Urgency(UrgencyLevel.ASAP, null);
-    protected static final Urgency NONE_INSTANCE = new Urgency(UrgencyLevel.NONE, null);
+    protected static final Urgency WHENEVER_INSTANCE = new Urgency(UrgencyLevel.WHENEVER, null);
 
     private UrgencyFactory() {}
 
@@ -13,8 +13,8 @@ public final class UrgencyFactory {
         return ASAP_INSTANCE;
     }
 
-    public static Urgency none() {
-        return NONE_INSTANCE;
+    public static Urgency whenever() {
+        return WHENEVER_INSTANCE;
     }
 
     public static Urgency fromDate(LocalDateTime date) {

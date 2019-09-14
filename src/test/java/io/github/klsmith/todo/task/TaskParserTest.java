@@ -19,21 +19,21 @@ class TaskParserTest {
     @Test
     void testParseNeedAsap() {
         final Task expected = new Task(TEST_TEXT, false, Importance.NEED, UrgencyFactory.asap());
-        final Task actual = parser.parse("\"TEST TEXT\" !NEED @ASAP");
+        final Task actual = parser.parse("\"TEST TEXT\" -NEED @ASAP");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testParseWantNone() {
-        final Task expected = new Task(TEST_TEXT, false, Importance.WANT, UrgencyFactory.none());
-        final Task actual = parser.parse("\"TEST TEXT\" !WANT @NONE");
+    void testParseWantWhenever() {
+        final Task expected = new Task(TEST_TEXT, false, Importance.WANT, UrgencyFactory.whenever());
+        final Task actual = parser.parse("\"TEST TEXT\" -WANT @WHENEVER");
         assertEquals(expected, actual);
     }
 
     @Test
     void testParseNoneDate() {
         final Task expected = new Task(TEST_TEXT, false, Importance.NONE, UrgencyFactory.fromDate(TEST_DATE));
-        final Task actual = parser.parse("\"TEST TEXT\" !NONE @2019-9-6;10:30");
+        final Task actual = parser.parse("\"TEST TEXT\" -NONE @2019-9-6;10:30");
         assertEquals(expected, actual);
     }
 

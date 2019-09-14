@@ -24,7 +24,7 @@ class UrgencyTest {
     void testValidConstructorCalls() {
         // none of these are for use outside of factory
         new Urgency(UrgencyLevel.ASAP, null);
-        new Urgency(UrgencyLevel.NONE, null);
+        new Urgency(UrgencyLevel.WHENEVER, null);
         new Urgency(UrgencyLevel.DATE, TEST_DATE);
         // this test passes as long as exceptions are not thrown
     }
@@ -37,9 +37,9 @@ class UrgencyTest {
     }
 
     @Test
-    void testInvalidNoneLevel() {
+    void testInvalidWheneverLevel() {
         assertThrows(InvalidUrgencyException.class, () -> {
-            new Urgency(UrgencyLevel.NONE, TEST_DATE);
+            new Urgency(UrgencyLevel.WHENEVER, TEST_DATE);
         });
     }
 
@@ -78,7 +78,7 @@ class UrgencyTest {
     @Test
     void testSimpleInequality() {
         final Urgency urgencyA = new Urgency(UrgencyLevel.ASAP, null);
-        final Urgency urgencyB = new Urgency(UrgencyLevel.NONE, null);
+        final Urgency urgencyB = new Urgency(UrgencyLevel.WHENEVER, null);
         assertNotEquals(urgencyA, urgencyB);
         assertNotEquals(urgencyB, urgencyA);
         assertNotEquals(urgencyA.hashCode(), urgencyB.hashCode());
@@ -112,8 +112,8 @@ class UrgencyTest {
     void testLevelSorting() {
         final Urgency asap = new Urgency(UrgencyLevel.ASAP, null);
         final Urgency date = new Urgency(UrgencyLevel.DATE, TEST_DATE);
-        final Urgency none = new Urgency(UrgencyLevel.NONE, null);
-        final List<Urgency> expected = Arrays.asList(asap, date, none);
+        final Urgency whenever = new Urgency(UrgencyLevel.WHENEVER, null);
+        final List<Urgency> expected = Arrays.asList(asap, date, whenever);
         final List<Urgency> actual = new ArrayList<>(expected);
         Collections.reverse(actual);
         Collections.sort(actual);
