@@ -9,8 +9,9 @@ public final class OptionalAsserts {
 
     private OptionalAsserts() {}
 
-    public static <T> void assertIsPresent(Optional<T> optional) {
+    public static <T> T assertIsPresent(Optional<T> optional) {
         assertTrue(optional.isPresent(), "Expected a value, but the Optional was empty.");
+        return optional.get();
     }
 
     public static <T> void assertIsNotPresent(Optional<T> optional) {
