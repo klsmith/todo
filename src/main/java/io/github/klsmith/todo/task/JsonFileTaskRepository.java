@@ -18,9 +18,13 @@ import com.google.gson.reflect.TypeToken;
 public class JsonFileTaskRepository implements TaskRepository {
 
 	private static final String TODO_HOME_ENV = "TODO_HOME";
+	private static final String DATA_PATH_PIECE = "/data/";
+	private static final String REPO_FILE_NAME = "repo.json";
+	private static final String CONFIG_FILE_NAME = "repo.config.json";
 
 	private final String home;
 	private final Gson gson;
+	private final JsonFileTaskRepositoryConfiguration config;
 
 	public JsonFileTaskRepository() {
 		home = System.getenv().get(TODO_HOME_ENV);
@@ -30,32 +34,34 @@ public class JsonFileTaskRepository implements TaskRepository {
 		gson = new GsonBuilder()
 				.setPrettyPrinting()
 				.create();
+		config = loadConfig();
 	}
 
-	private String getFilePath() {
-		final String dataPath = home + "/data/";
-		final File dataDirectory = new File(dataPath);
-		if (!dataDirectory.exists()) {
-			dataDirectory.mkdirs();
+	private JsonFileTaskRepositoryConfiguration loadConfig() {
+		final String filePath = getConfigFilePath();
+		final String json = getFileAsString(filePath);
+		final JsonFileTaskRepositoryConfiguration result;
+		if (null == json || json.isEmpty()) {
+			result = new JsonFileTaskRepositoryConfiguration();
+			writeFileFromString(filePath, gson.toJson(result));
+		} else {
+			result = gson.fromJson(json, JsonFileTaskRepositoryConfiguration.class);
 		}
-		return dataPath + "repo.json";
+		return result;
 	}
 
-	@Override
-	public void add(Task task) {
-		final List<Task> list = getAll();
-		list.add(task);
-		save(list);
-	}
-
-	@Override
-	public List<Task> getAll() {
-		final String filePath = getFilePath();
-		final StringBuilder json = new StringBuilder();
-		try (final BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+	private String getFileAsString(String filePath) {
+		final File file = new File(filePath);
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		final StringBuilder stringBuilder = new StringBuilder();
+		try (final BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			String line = reader.readLine();
 			while (line != null) {
-				json.append(line + "\n");
+				stringBuilder.append(line + "\n");
 				line = reader.readLine();
 			}
 		} catch (FileNotFoundException e) {
@@ -63,16 +69,13 @@ public class JsonFileTaskRepository implements TaskRepository {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		final Type listType = new TypeToken<ArrayList<Task>>() {
-		}.getType();
-		return gson.fromJson(json.toString(), listType);
+		return stringBuilder.toString();
 	}
 
-	public void save(List<Task> list) {
-		final String filePath = getFilePath();
+	private void writeFileFromString(String filePath, String string) {
 		try (final BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
 			try {
-				writer.write(gson.toJson(list));
+				writer.write(string);
 			} catch (IOException e) {
 				System.err.printf("An error occured writing to file:\"%s\", not stopping execution.%n", filePath);
 				e.printStackTrace();
@@ -80,6 +83,45 @@ public class JsonFileTaskRepository implements TaskRepository {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private String getConfigFilePath() {
+		return getDataDirectoryPath() + CONFIG_FILE_NAME;
+	}
+
+	private String getRepoFilePath() {
+		return getDataDirectoryPath() + REPO_FILE_NAME;
+	}
+
+	private String getDataDirectoryPath() {
+		final String dataPath = home + DATA_PATH_PIECE;
+		final File dataDirectory = new File(dataPath);
+		if (!dataDirectory.exists()) {
+			dataDirectory.mkdirs();
+		}
+		return dataPath;
+	}
+
+	@Override
+	public void add(Task task) {
+		final List<Task> list = getAll();
+		if (config.allowDuplicates() || !list.contains(task)) {
+			list.add(task);
+		}
+		save(list);
+	}
+
+	@Override
+	public List<Task> getAll() {
+		final String json = getFileAsString(getRepoFilePath());
+		final Type listType = new TypeToken<ArrayList<Task>>() {
+		}.getType();
+		return gson.fromJson(json.toString(), listType);
+	}
+
+	public void save(List<Task> list) {
+		final String filePath = getRepoFilePath();
+		writeFileFromString(filePath, gson.toJson(list));
 	}
 
 }

@@ -33,7 +33,7 @@ class TaskParserTest {
     @Test
     void testParseNoneDate() {
         final Task expected = new Task(TEST_TEXT, false, Importance.NONE, UrgencyFactory.fromDate(TEST_DATE));
-        final Task actual = parser.parse("\"TEST TEXT\" -NONE @2019-9-6;10:30");
+        final Task actual = parser.parse("\"TEST TEXT\" -NONE @2019-9-6-10:30");
         assertEquals(expected, actual);
     }
 

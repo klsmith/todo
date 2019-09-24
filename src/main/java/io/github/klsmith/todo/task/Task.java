@@ -74,7 +74,7 @@ public class Task implements Comparable<Task> {
 	public String getDisplayString() {
 		final String completeString = isComplete() ? "(COMPLETE) " : "";
 		return String.format("%s%s to \"%s\", %s.",
-				completeString, importance, text, urgency.getLevel());
+				completeString, importance, text, urgency.getDisplayString());
 	}
 
 }

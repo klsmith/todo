@@ -9,7 +9,7 @@ public final class UrgencyFactory {
 
     protected static final Urgency ASAP_INSTANCE = new Urgency(UrgencyLevel.ASAP, null);
     protected static final Urgency WHENEVER_INSTANCE = new Urgency(UrgencyLevel.WHENEVER, null);
-    protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("uuuu-M-d;H:mm");
+    protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("uuuu-M-d-H:mm");
 
     private UrgencyFactory() {}
 
