@@ -109,6 +109,12 @@ class UrgencyTest {
     }
 
     @Test
+    void testNullInequality() {
+        final Urgency urgency = new Urgency(UrgencyLevel.DATE, TEST_DATE);
+        assertNotEquals(urgency, null);
+    }
+
+    @Test
     void testLevelSorting() {
         final Urgency asap = new Urgency(UrgencyLevel.ASAP, null);
         final Urgency date = new Urgency(UrgencyLevel.DATE, TEST_DATE);

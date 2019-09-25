@@ -8,4 +8,10 @@ public interface TaskRepository {
 
     public List<Task> getAll();
 
+    public void remove(Task task);
+
+    public Task removeByListNumber(int listNumber);
+
+    public Task completeByListNumber(int listNumber);
+
 }
