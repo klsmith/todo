@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -117,6 +118,7 @@ public class JsonFileTaskRepository implements TaskRepository {
         final Type listType = new TypeToken<ArrayList<Task>>() {}.getType();
         final List<Task> results = gson.fromJson(json.toString(), listType);
         if (null != results) {
+            Collections.sort(results);
             return results;
         }
         return new ArrayList<>();

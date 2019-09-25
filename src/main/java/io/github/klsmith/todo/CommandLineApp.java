@@ -83,7 +83,6 @@ public class CommandLineApp {
     private static int complete(String... tokens) {
         final TaskRepository repository = new JsonFileTaskRepository();
         final int listNumber = Integer.parseInt(tokens[0]);
-        repository.completeByListNumber(listNumber);
         final Task completedTask = repository.completeByListNumber(listNumber);
         System.out.printf("Task Completed: %s%n", completedTask.getDisplayString());
         return STATUS_OK;
