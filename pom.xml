@@ -62,7 +62,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>io.github.klsmith.todo.CommandLineApp</mainClass>
+                            <mainClass>io.github.klsmith.todo.cli.CommandLineApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
