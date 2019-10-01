@@ -129,7 +129,8 @@ public class JsonFileTaskRepository implements TaskRepository {
         writeFileFromString(filePath, gson.toJson(list));
     }
 
-    public Task removeByListNumber(int listNumber) {
+    @Override
+	public Task removeByListNumber(int listNumber) {
         final List<Task> list = getAll();
         final Task task = list.get(listNumber - 1);
         list.remove(task);
