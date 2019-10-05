@@ -4,17 +4,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import io.github.klsmith.todo.task.JsonFileTaskRepository;
 import io.github.klsmith.todo.task.Task;
 import io.github.klsmith.todo.task.TaskParser;
 import io.github.klsmith.todo.task.TaskRepository;
+import io.github.klsmith.todo.task.WebServiceTaskRepository;
 
 public class Command {
 
+    final TaskRepository repository;
     private final CommandType type;
     private final String[] tokens;
 
     public Command(String... args) {
+        repository = new WebServiceTaskRepository();
         final CommandType temp = CommandType.fromArgs(args);
         if (CommandType.UNKNOWN == temp) {
             type = CommandType.ADD;
@@ -55,7 +57,6 @@ public class Command {
     }
 
     private Status add() {
-        final TaskRepository repository = new JsonFileTaskRepository();
         final TaskParser parser = new TaskParser();
         final Task task = parser.parse(tokens);
         repository.add(task);
@@ -64,7 +65,6 @@ public class Command {
     }
 
     private Status list() {
-        final TaskRepository repository = new JsonFileTaskRepository();
         final List<Task> results = repository.getAll();
         Collections.sort(results);
         for (int i = 0; i < results.size(); i++) {
@@ -78,7 +78,6 @@ public class Command {
     }
 
     private Status remove() {
-        final TaskRepository repository = new JsonFileTaskRepository();
         final int listNumber = Integer.parseInt(tokens[0]);
         final Task removedTask = repository.removeByListNumber(listNumber);
         System.out.printf("Task Removed: %s%n", removedTask.getDisplayString());
@@ -86,7 +85,6 @@ public class Command {
     }
 
     private Status complete() {
-        final TaskRepository repository = new JsonFileTaskRepository();
         final int listNumber = Integer.parseInt(tokens[0]);
         final Task completedTask = repository.completeByListNumber(listNumber);
         System.out.printf("Task Completed: %s%n", completedTask.getDisplayString());
