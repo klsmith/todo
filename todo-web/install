@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-mvn -U -Drevision=$1 clean package && (rm "${TODO_HOME}/todo-web-${1}.jar" || cp "target/todo-web-${1}.jar" $TODO_HOME/)
-
+mvn -U clean package && (rm "${TODO_HOME}/todo-web.jar"; cp "todo-web/target/todo-web.jar" $TODO_HOME/)

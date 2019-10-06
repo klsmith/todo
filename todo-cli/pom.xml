@@ -59,6 +59,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<finalName>todo-cli</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>

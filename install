@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+./todo-cli/install
+./todo-web/install
