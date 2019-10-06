@@ -1,3 +1,6 @@
+# Maven plugin files
+.flattened-pom.xml
+
 # Compiled class file
 *.class
 
@@ -22,7 +25,7 @@
 # virtual machine crash logs
 hs_err_pid*
 /target/
-
+*/target/
 # Eclipse files
 .classpath
 .project

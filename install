@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-mvn clean package && rm $TODO_HOME/todo-1.0-SNAPSHOT.jar && cp target/todo-1.0-SNAPSHOT.jar $TODO_HOME/
