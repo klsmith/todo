@@ -19,6 +19,9 @@
 		<downloadJavadocs>true</downloadJavadocs>
 		<java.version>1.8</java.version>
 
+		<!-- Eclipse Specific Properties -->
+		<lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
+
 		<!-- Plugin Version Properties -->
 		<compiler.version>3.8.0</compiler.version>
 		<surefire.version>2.22.1</surefire.version>
